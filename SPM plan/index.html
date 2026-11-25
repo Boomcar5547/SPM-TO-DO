@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eef2f9" />
+  <meta name="description" content="SPM Plan — 轻量、好看的任务进度管理工具，支持自定义壁纸、进度环与本地数据备份。" />
+  <title>SPM Plan · 任务进度管理</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2310b981'/><path d='M18 33l9 9 19-20' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <script>
+    (function () {
+      try {
+        var raw = localStorage.getItem('spm-plan-data-v1');
+        var data = raw ? JSON.parse(raw) : null;
+        var theme = data && data.settings ? data.settings.theme : 'auto';
+        var dark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.dataset.theme = 'dark';
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wallpaper" id="wallpaper" aria-hidden="true"></div>
+  <div class="wallpaper-scrim" id="wallpaperScrim" aria-hidden="true"></div>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">SPM</div>
+        <div class="brand-text">
+          <strong>SPM Plan</strong>
+          <span>任务进度管理</span>
+        </div>
+        <button class="icon-btn only-mobile" data-action="close-sidebar" aria-label="关闭侧栏">
+          <span class="icon" data-icon="close"></span>
+        </button>
+      </div>
+
+      <div class="search">
+        <span class="icon" data-icon="search"></span>
+        <input id="searchInput" type="text" placeholder="搜索任务…" autocomplete="off" />
+        <button type="button" class="search-clear" id="searchClear" data-action="clear-search" aria-label="清空搜索" hidden>
+          <span class="icon" data-icon="close"></span>
+        </button>
+      </div>
+
+      <nav class="nav" id="smartNav" aria-label="智能清单">
+        <button class="nav-item" data-view="myday" type="button">
+          <span class="nav-icon sun"><span class="icon" data-icon="sun"></span></span>
+          <span class="nav-label">我的一天</span>
+          <span class="badge" data-count="myday"></span>
+        </button>
+        <button class="nav-item" data-view="important" type="button">
+          <span class="nav-icon star"><span class="icon" data-icon="star"></span></span>
+          <span class="nav-label">重要</span>
+          <span class="badge" data-count="important"></span>
+        </button>
+        <button class="nav-item" data-view="planned" type="button">
+          <span class="nav-icon calendar"><span class="icon" data-icon="calendar"></span></span>
+          <span class="nav-label">计划</span>
+          <span class="badge" data-count="planned"></span>
+        </button>
+        <button class="nav-item" data-view="all" type="button">
+          <span class="nav-icon inbox"><span class="icon" data-icon="inbox"></span></span>
+          <span class="nav-label">全部任务</span>
+          <span class="badge" data-count="all"></span>
+        </button>
+        <button class="nav-item" data-view="completed" type="button">
+          <span class="nav-icon done"><span class="icon" data-icon="check"></span></span>
+          <span class="nav-label">已完成</span>
+        </button>
+      </nav>
+
+      <div class="section-head">
+        <span>我的清单</span>
+        <button class="icon-btn tiny" data-action="new-list" title="新建清单" aria-label="新建清单">
+          <span class="icon" data-icon="plus"></span>
+        </button>
+      </div>
+      <div class="list-nav" id="listNav"></div>
+      <form class="new-list-form" id="newListForm" hidden>
+        <input id="newListInput" type="text" maxlength="20" placeholder="清单名称" autocomplete="off" />
+        <button type="submit" class="primary-btn tiny">添加</button>
+      </form>
+
+      <div class="sidebar-foot">
+        <button class="side-action" data-action="open-settings" type="button">
+          <span class="icon" data-icon="palette"></span>外观与壁纸
+        </button>
+        <div class="side-grid">
+          <button class="side-action" data-action="export-data" type="button" title="下载带日期的完整备份">
+            <span class="icon" data-icon="download"></span>导出备份
+          </button>
+          <label class="side-action" for="importFile" title="导入 JSON 备份">
+            <span class="icon" data-icon="upload"></span>导入备份
+            <input id="importFile" type="file" accept="application/json,.json" hidden />
+          </label>
+          <button class="side-action" data-action="sync-repo" type="button" title="从仓库 tasks.json 读取最新任务">
+            <span class="icon" data-icon="refresh"></span>仓库同步
+          </button>
+          <button class="side-action" data-action="export-repo" type="button" title="下载 tasks.json，上传替换仓库里的同名文件">
+            <span class="icon" data-icon="cloud"></span>发布数据
+          </button>
+        </div>
+        <p class="side-tip">任务存本机，也可发布到仓库</p>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <button class="icon-btn only-mobile" data-action="toggle-sidebar" aria-label="打开菜单">
+          <span class="icon" data-icon="menu"></span>
+        </button>
+        <div class="heading">
+          <div class="heading-row">
+            <h2 id="viewTitle">我的一天</h2>
+            <span class="date-chip" id="dateChip">今天</span>
+          </div>
+          <p id="viewSubtitle">挑出今天最想完成的事，专注推进。</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" data-action="toggle-theme" title="切换明暗模式" aria-label="切换明暗模式">
+            <span class="icon" data-icon="moon"></span>
+          </button>
+          <button class="icon-btn" data-action="open-settings" title="外观与壁纸" aria-label="外观与壁纸">
+            <span class="icon" data-icon="palette"></span>
+          </button>
+        </div>
+      </header>
+
+      <div class="sync-banner" id="syncBanner" hidden>
+        <span class="icon" data-icon="cloud"></span>
+        <span class="sync-text" id="syncBannerText">仓库有较新的任务数据</span>
+        <button type="button" class="primary-btn tiny" data-action="apply-remote">载入</button>
+        <button type="button" class="icon-btn tiny" data-action="dismiss-remote" aria-label="稍后处理">
+          <span class="icon" data-icon="close"></span>
+        </button>
+      </div>
+
+      <section class="hero" aria-label="进度概览">
+        <div class="ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-track" cx="60" cy="60" r="50"></circle>
+            <circle class="ring-value" id="ringValue" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="ring-center">
+            <strong id="ringPercent">0%</strong>
+            <span>已完成</span>
+          </div>
+        </div>
+        <div class="hero-copy">
+          <span class="hero-greet" id="greeting">你好</span>
+          <h3 id="heroHeadline">今天想完成什么？</h3>
+          <p id="heroSub">把注意力放在最重要的一件事上。</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" id="statTodo">0</span>
+            <small>待完成</small>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="statDone">0</span>
+            <small>已完成</small>
+          </div>
+          <div class="stat alert">
+            <span class="stat-num" id="statOverdue">0</span>
+            <small>已逾期</small>
+          </div>
+        </div>
+      </section>
+
+      <form class="composer" id="composer" autocomplete="off">
+        <span class="composer-plus icon" data-icon="plus"></span>
+        <input class="composer-input" id="newTaskInput" type="text" placeholder="添加任务，按 Enter 确认…" maxlength="160" />
+        <div class="composer-tools">
+          <label class="date-field" title="到期日期">
+            <span class="icon" data-icon="calendar"></span>
+            <input type="date" id="newTaskDue" aria-label="到期日期" />
+          </label>
+          <button type="button" class="tool-btn" id="newTaskStar" data-action="toggle-new-important" title="标记为重要" aria-label="标记为重要">
+            <span class="icon" data-icon="star"></span>
+          </button>
+          <select class="list-select" id="newTaskList" title="所属清单" aria-label="所属清单"></select>
+          <button type="submit" class="primary-btn">添加</button>
+        </div>
+      </form>
+
+      <div class="list-bar">
+        <span id="listSummary">暂无任务</span>
+        <button class="ghost-btn" data-action="toggle-completed" id="completedToggle" type="button">显示已完成</button>
+      </div>
+
+      <div class="task-scroll" id="taskScroll"></div>
+    </main>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="drawer" id="drawer" aria-label="任务详情" aria-hidden="true" inert>
+    <header class="panel-head">
+      <span class="panel-title">任务详情</span>
+      <div class="panel-actions">
+        <button class="icon-btn" data-action="delete-current" aria-label="删除任务">
+          <span class="icon" data-icon="trash"></span>
+        </button>
+        <button class="icon-btn" data-action="close-drawer" aria-label="关闭">
+          <span class="icon" data-icon="close"></span>
+        </button>
+      </div>
+    </header>
+    <div class="panel-body">
+      <div class="detail-title-row">
+        <button class="check big" id="detailCheck" data-action="toggle-done-current" aria-label="标记完成">
+          <span class="icon" data-icon="check"></span>
+        </button>
+        <textarea id="detailTitle" class="detail-title" rows="1" placeholder="任务标题" maxlength="160"></textarea>
+      </div>
+
+      <div class="detail-props">
+        <label class="prop">
+          <span>清单</span>
+          <select id="detailList"></select>
+        </label>
+        <label class="prop">
+          <span>日期</span>
+          <input type="date" id="detailDue" />
+        </label>
+        <div class="prop">
+          <span>标记</span>
+          <div class="prop-toggles">
+            <button type="button" class="toggle-chip" id="detailImportant" data-action="detail-important">
+              <span class="icon" data-icon="star"></span>重要
+            </button>
+            <button type="button" class="toggle-chip" id="detailMyDay" data-action="detail-myday">
+              <span class="icon" data-icon="sun"></span>我的一天
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4><span>步骤</span><span class="step-count" id="stepCount"></span></h4>
+        <div class="steps" id="stepList"></div>
+        <div class="step-add">
+          <input type="text" id="stepInput" placeholder="添加步骤，按 Enter 保存" maxlength="120" />
+          <button type="button" class="icon-btn tiny" data-action="add-step" aria-label="添加步骤">
+            <span class="icon" data-icon="plus"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4><span>备注</span></h4>
+        <textarea id="detailNote" placeholder="写点备注…" maxlength="2000"></textarea>
+      </div>
+
+      <p class="detail-meta" id="detailMeta"></p>
+    </div>
+  </aside>
+
+  <section class="sheet" id="sheet" aria-label="外观设置" aria-hidden="true" inert>
+    <header class="panel-head">
+      <span class="panel-title">外观与壁纸</span>
+      <div class="panel-actions">
+        <button class="icon-btn" data-action="close-settings" aria-label="关闭">
+          <span class="icon" data-icon="close"></span>
+        </button>
+      </div>
+    </header>
+    <div class="panel-body">
+      <div class="field">
+        <div class="field-title">壁纸</div>
+        <div class="wallpaper-grid" id="wallpaperGrid"></div>
+        <div class="wallpaper-actions">
+          <label class="btn-soft" for="wallpaperFile">
+            <span class="icon" data-icon="image"></span>上传图片
+            <input id="wallpaperFile" type="file" accept="image/*" hidden />
+          </label>
+          <button type="button" class="btn-soft" data-action="wallpaper-url">
+            <span class="icon" data-icon="link"></span>图片链接
+          </button>
+        </div>
+        <div class="url-row" id="wallpaperUrlRow" hidden>
+          <input type="url" id="wallpaperUrl" class="text-input" placeholder="https://example.com/wallpaper.jpg" />
+          <button type="button" class="primary-btn tiny" data-action="apply-url">应用</button>
+        </div>
+        <div class="custom-row" id="customWallpaperRow" hidden>
+          <span>正在使用自定义图片</span>
+          <button type="button" class="ghost-btn" data-action="remove-wallpaper">移除</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-title">壁纸效果</div>
+        <div class="slider-field">
+          <label for="blurRange">模糊 <output id="blurOut">0px</output></label>
+          <input type="range" id="blurRange" min="0" max="24" step="1" value="0" />
+          <label for="dimRange">遮罩 <output id="dimOut">22%</output></label>
+          <input type="range" id="dimRange" min="0" max="80" step="1" value="22" />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-title">界面通透度</div>
+        <div class="slider-field">
+          <label for="surfaceRange">面板不透明度 <output id="surfaceOut">62%</output></label>
+          <input type="range" id="surfaceRange" min="20" max="90" step="1" value="62" />
+          <label for="glassBlurRange">玻璃模糊 <output id="glassBlurOut">14px</output></label>
+          <input type="range" id="glassBlurRange" min="0" max="24" step="1" value="14" />
+        </div>
+        <p class="field-hint">调低不透明度可以看到更多壁纸。任务卡片会自动保留对比底板，文字不受透明度影响，始终保持清晰。</p>
+      </div>
+
+      <div class="field">
+        <div class="field-title">主题色</div>
+        <div class="accent-row" id="accentRow"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-title">明暗模式</div>
+        <div class="segmented" id="themeRow">
+          <button type="button" data-theme-set="light">浅色</button>
+          <button type="button" data-theme-set="dark">深色</button>
+          <button type="button" data-theme-set="auto">跟随系统</button>
+        </div>
+      </div>
+
+      <div class="sheet-foot">
+        <button type="button" class="btn-soft" data-action="reset-wallpaper">壁纸恢复默认</button>
+        <button type="button" class="primary-btn" data-action="close-settings">完成</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p style="position:fixed;inset:0;display:grid;place-items:center;background:#fff;color:#0f172a;z-index:999;text-align:center;padding:24px;">
+      SPM Plan 需要启用 JavaScript 才能运行。
+    </p>
+  </noscript>
+
+  <script src="app.js"></script>
+</body>
+</html>
