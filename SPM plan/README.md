@@ -27,12 +27,13 @@ SPM plan/
 ├── style.css    全部样式（玻璃拟态、主题、响应式）
 ├── app.js       全部交互逻辑与数据管理
 ├── tasks.json   仓库数据快照（页面打开时自动读取；发布时替换它）
+├── SPM Plan Desktop/  Windows 桌面版（exe、依赖、源码、zip）
 ├── preview.png  界面预览
 ├── LICENSE      MIT
 └── README.md
 ```
 
-所有文件必须放在同一目录，`index.html` 通过相对路径引用 `style.css`、`app.js`，并在 GitHub Pages 下自动读取 `tasks.json`。
+网页相关文件必须放在同一目录，`index.html` 通过相对路径引用 `style.css`、`app.js`，并在 GitHub Pages 下自动读取 `tasks.json`。
 
 ## 快速开始
 
@@ -41,6 +42,17 @@ SPM plan/
 直接双击 `index.html` 即可使用。数据保存在当前浏览器里，不需要服务器。
 
 注意：`file://` 模式下浏览器会禁止页面读取 `tasks.json`，所以「仓库同步」不可用；需要该功能时请用 GitHub Pages，或在本地运行 `python -m http.server` 后访问 `http://localhost:8000/`。
+
+### Windows 桌面版
+
+`SPM Plan Desktop/` 里是打包好的在线桌面版：
+
+- `SPM Plan.exe`：双击启动，使用系统 WebView2 打开你的 GitHub Pages；任务仍从仓库 `tasks.json` 读取。
+- `SPM-Plan-Windows-x64.zip`：可单独分发的压缩包；解压后双击 exe。
+- `src/`：C# 源码，方便以后重新编译。
+- `config.ini`：修改里面的 `url=` 可以更换打开的 Pages 地址。
+
+桌面版需要联网和 Microsoft Edge WebView2 运行库；请保持 exe 与同目录 DLL 文件在一起。详细说明见 `SPM Plan Desktop/README.txt`。
 
 ### 发布到 GitHub Pages
 
