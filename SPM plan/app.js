@@ -84,7 +84,8 @@
     query: '',
     editingId: null,
     newImportant: false,
-    animateNext: false
+    animateNext: false,
+    expandedSteps: {}
   };
 
   var state = null;
@@ -505,6 +506,7 @@
     lastContentSignature = contentSignature();
 
     if (ui.editingId) closeDrawer();
+    ui.expandedSteps = {};
     if (ui.view.type === 'list' && !findList(ui.view.id)) {
       ui.view = { type: 'all', id: null };
     }
@@ -812,10 +814,19 @@
     return groups;
   }
 
+  function inlineStepHTML(step) {
+    return '<div class="inline-step' + (step.done ? ' done' : '') + '" data-step-id="' + esc(step.id) + '">' +
+      '<input type="checkbox" ' + (step.done ? 'checked' : '') + ' aria-label="完成步骤" />' +
+      '<span>' + esc(step.text) + '</span>' +
+      '<button type="button" class="inline-step-del" data-action="delete-inline-step" aria-label="删除步骤">' + icon('close') + '</button>' +
+    '</div>';
+  }
+
   function taskHTML(task) {
     var list = findList(task.listId);
     var due = task.due ? dueMeta(task.due) : null;
     var stepDone = task.steps.filter(function (s) { return s.done; }).length;
+    var stepsOpen = !!ui.expandedSteps[task.id];
     var metas = [];
 
     if (list) {
@@ -824,11 +835,25 @@
     if (due) {
       metas.push('<span class="meta-item due ' + due.cls + '">' + icon('calendar') + esc(due.label) + '</span>');
     }
-    if (task.steps.length) {
-      metas.push('<span class="meta-item">' + icon('step') + stepDone + '/' + task.steps.length + '</span>');
-    }
+    metas.push('<button type="button" class="meta-item step-toggle' + (stepsOpen ? ' open' : '') + '" data-action="toggle-steps" aria-expanded="' + (stepsOpen ? 'true' : 'false') + '" title="' + (stepsOpen ? '收起步骤' : '展开步骤') + '">' +
+      icon('step') + '步骤' + (task.steps.length ? ' ' + stepDone + '/' + task.steps.length : '') +
+      '<span class="step-chev">' + icon('chevronDown') + '</span>' +
+    '</button>');
     if (task.note) {
       metas.push('<span class="meta-item">' + icon('note') + '备注</span>');
+    }
+
+    var stepsPanel = '';
+    if (stepsOpen) {
+      stepsPanel = '<div class="task-steps">' +
+        '<div class="inline-steps">' +
+          (task.steps.length ? task.steps.map(inlineStepHTML).join('') : '<p class="inline-steps-empty">还没有步骤，添加一个吧。</p>') +
+        '</div>' +
+        '<div class="inline-step-add">' +
+          '<input type="text" class="inline-step-input" placeholder="添加步骤，按 Enter 保存" maxlength="120" autocomplete="off" />' +
+          '<button type="button" class="icon-btn tiny" data-action="add-inline-step" aria-label="添加步骤">' + icon('plus') + '</button>' +
+        '</div>' +
+      '</div>';
     }
 
     return '<article class="task' + (task.done ? ' done' : '') + (task.important ? ' important' : '') + '" data-id="' + esc(task.id) + '">' +
@@ -844,6 +869,7 @@
         '<button type="button" class="mini-action' + (task.important ? ' active' : '') + '" data-action="toggle-important" title="标记重要" aria-label="标记重要">' + icon('star') + '</button>' +
         '<button type="button" class="mini-action danger" data-action="delete-task" title="删除任务" aria-label="删除任务">' + icon('trash') + '</button>' +
       '</div>' +
+      stepsPanel +
     '</article>';
   }
 
@@ -1154,9 +1180,7 @@
 
     $('#detailDue').value = task.due || '';
     $('#detailNote').value = task.note || '';
-    $('#stepInput').value = '';
     syncDrawer(task);
-    renderSteps(task);
   }
 
   function syncDrawer(task) {
@@ -1173,50 +1197,65 @@
     el.style.height = Math.min(el.scrollHeight, 180) + 'px';
   }
 
-  function renderSteps(task) {
-    var wrap = $('#stepList');
-    if (!wrap) return;
-    if (!task.steps.length) {
-      wrap.innerHTML = '<p class="steps-empty">还没有步骤，把任务拆小一点会更容易开始。</p>';
-    } else {
-      wrap.innerHTML = task.steps.map(function (step) {
-        return '<div class="step' + (step.done ? ' done' : '') + '" data-step-id="' + esc(step.id) + '">' +
-          '<input type="checkbox" ' + (step.done ? 'checked' : '') + ' aria-label="完成步骤" />' +
-          '<span>' + esc(step.text) + '</span>' +
-          '<button type="button" class="step-del" data-action="delete-step" aria-label="删除步骤">' + icon('close') + '</button>' +
-        '</div>';
-      }).join('');
+  function findTaskCard(id) {
+    var cards = document.querySelectorAll('.task');
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].getAttribute('data-id') === id) return cards[i];
     }
-    var doneCount = task.steps.filter(function (s) { return s.done; }).length;
-    $('#stepCount').textContent = task.steps.length ? doneCount + '/' + task.steps.length : '';
+    return null;
   }
 
-  function addStep() {
-    var task = findTask(ui.editingId);
+  function addInlineStep(taskId) {
+    var task = findTask(taskId);
     if (!task) return;
-    var input = $('#stepInput');
+    var card = findTaskCard(taskId);
+    if (!card) return;
+    var input = card.querySelector('.inline-step-input');
+    if (!input) return;
     var text = input.value.trim();
     if (!text) {
       input.focus();
       return;
     }
+
     task.steps.push({ id: uid(), text: text, done: false });
-    input.value = '';
     save();
-    renderSteps(task);
     render();
-    input.focus();
+
+    var newCard = findTaskCard(taskId);
+    if (newCard) {
+      var newInput = newCard.querySelector('.inline-step-input');
+      if (newInput) newInput.focus();
+    }
   }
 
-  function deleteStep(button) {
-    var task = findTask(ui.editingId);
+  function deleteInlineStep(button) {
+    var card = button.closest('.task');
+    if (!card) return;
+    var task = findTask(card.getAttribute('data-id'));
     if (!task) return;
-    var stepEl = button.closest('.step');
+    var stepEl = button.closest('.inline-step');
     if (!stepEl) return;
     var stepId = stepEl.getAttribute('data-step-id');
     task.steps = task.steps.filter(function (step) { return step.id !== stepId; });
     save();
-    renderSteps(task);
+    render();
+  }
+
+  function onInlineStepChange(event) {
+    var checkbox = event.target.closest('.inline-step input[type="checkbox"]');
+    if (!checkbox) return;
+    var card = checkbox.closest('.task');
+    if (!card) return;
+    var task = findTask(card.getAttribute('data-id'));
+    if (!task) return;
+    var stepEl = checkbox.closest('.inline-step');
+    if (!stepEl) return;
+    var stepId = stepEl.getAttribute('data-step-id');
+    task.steps.forEach(function (step) {
+      if (step.id === stepId) step.done = checkbox.checked;
+    });
+    save();
     render();
   }
 
@@ -1362,12 +1401,15 @@
     var index = state.tasks.findIndex(function (t) { return t.id === id; });
     if (index < 0) return;
     var removed = state.tasks[index];
+    var wasExpanded = !!ui.expandedSteps[id];
     state.tasks.splice(index, 1);
+    delete ui.expandedSteps[id];
     if (ui.editingId === id) closeDrawer();
     save();
     render();
     showToast('已删除「' + truncate(removed.title, 18) + '」', function () {
       state.tasks.splice(Math.min(index, state.tasks.length), 0, removed);
+      if (wasExpanded) ui.expandedSteps[id] = true;
       save();
       render();
       showToast('已恢复任务');
@@ -1688,27 +1730,16 @@
     });
     $('#detailNote').addEventListener('blur', function () { render(); });
 
-    $('#stepList').addEventListener('change', function (event) {
-      var checkbox = event.target.closest('input[type="checkbox"]');
-      if (!checkbox) return;
-      var task = findTask(ui.editingId);
-      if (!task) return;
-      var stepEl = checkbox.closest('.step');
-      if (!stepEl) return;
-      var stepId = stepEl.getAttribute('data-step-id');
-      task.steps.forEach(function (step) {
-        if (step.id === stepId) step.done = checkbox.checked;
-      });
-      save();
-      renderSteps(task);
-      render();
-    });
-
-    $('#stepInput').addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        addStep();
-      }
+    $('#taskScroll').addEventListener('change', onInlineStepChange);
+    $('#taskScroll').addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter') return;
+      var input = event.target.closest('.inline-step-input');
+      if (!input) return;
+      var card = input.closest('.task');
+      if (!card) return;
+      event.preventDefault();
+      event.stopPropagation();
+      addInlineStep(card.getAttribute('data-id'));
     });
 
     $('#wallpaperGrid').addEventListener('click', function (event) {
@@ -1961,11 +1992,17 @@
         syncDrawer(myDayTask);
         break;
       }
-      case 'add-step':
-        addStep();
+      case 'toggle-steps':
+        if (taskId) {
+          ui.expandedSteps[taskId] = !ui.expandedSteps[taskId];
+          render();
+        }
         break;
-      case 'delete-step':
-        deleteStep(actionEl);
+      case 'add-inline-step':
+        if (taskId) addInlineStep(taskId);
+        break;
+      case 'delete-inline-step':
+        deleteInlineStep(actionEl);
         break;
       default:
         break;
@@ -1989,6 +2026,9 @@
     var tag = target && target.tagName ? target.tagName.toLowerCase() : '';
     var typing = tag === 'input' || tag === 'textarea' || tag === 'select' || (target && target.isContentEditable);
     if (typing) return;
+
+    // 任务行里的按钮自己处理 Enter，不要再打开详情面板
+    if (event.key === 'Enter' && target && target.closest && target.closest('button, a')) return;
 
     if (target && target.closest && target.closest('.task-main') && event.key === 'Enter') {
       event.preventDefault();

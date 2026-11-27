@@ -1,0 +1,404 @@
+﻿# C: drive audit  2026-11-26 15:51:53
+Host: SPM-PC2   User: Administrator
+
+## 1. Disk
+C: total 102.9 GB | used 101.2 GB | free 1.6 GB
+OS: Microsoft Windows 10 Pro | installed: 11/15/2022 10:05:19 AM
+
+## 2. Root files (hiberfil/pagefile/swapfile)
+hiberfil.sys                 3,261.6 MB   11/25/2026 10:05:40 AM
+swapfile.sys                   256.0 MB   11/25/2026 10:05:43 AM
+bootmgr                          0.4 MB   10/15/2025 3:33:24 AM
+acadminidump.dmp                 0.1 MB   7/16/2025 3:15:53 PM
+DumpStack.log.tmp                0.0 MB   7/16/2025 3:27:12 PM
+bootTel.dat                      0.0 MB   4/25/2024 6:12:10 PM
+logUploaderSettings_temp.ini         0.0 MB   8/4/2025 2:07:27 PM
+logUploaderSettings.ini          0.0 MB   8/4/2025 2:07:27 PM
+BOOTNXT                          0.0 MB   12/7/2019 5:08:58 PM
+$WINRE_BACKUP_PARTITION.MARKER         0.0 MB   3/19/2026 9:36:40 AM
+
+## 3. Top-level folders
+        0.0 MB | 2023-08-18 | C:\$Recycle.Bin
+        0.0 MB | 2024-10-08 | C:\$WINDOWS.~BT
+        0.0 MB | 2024-10-08 | C:\$Windows.~WS
+        0.0 MB | 2026-03-19 | C:\$WinREAgent
+       18.1 MB | 2025-10-15 | C:\Boot
+        1.0 MB | 2023-05-18 | C:\Cadence
+        0.0 MB | 2022-11-15 | C:\Documents and Settings
+        0.0 MB | 2023-02-17 | C:\Downloads
+        0.0 MB | 2023-03-28 | C:\ESD
+       14.0 MB | 2023-05-18 | C:\inetpub
+        0.0 MB | 2023-03-28 | C:\OneDriveTemp
+        0.0 MB | 2019-12-07 | C:\PerfLogs
+   23,985.4 MB | 2026-10-22 | C:\Program Files
+    8,081.9 MB | 2026-10-22 | C:\Program Files (x86)
+   14,920.2 MB | 2026-11-04 | C:\ProgramData
+       13.1 MB | 2025-08-14 | C:\QMDownload
+      753.1 MB | 2022-11-23 | C:\Recovery
+        7.0 MB | 2022-11-16 | C:\SolidWorks_Flexnet_Server
+        0.0 MB | 2024-01-24 | C:\System Volume Information
+   25,914.9 MB | 2022-11-15 | C:\Users
+   34,754.0 MB | 2026-11-26 | C:\Windows
+
+## 4. User profiles
+   25,342.2 MB | 2026-10-22 | C:\Users\Administrator
+   14,920.2 MB | 2019-12-07 | C:\Users\All Users
+        3.6 MB | 2022-11-16 | C:\Users\Default
+        0.0 MB | 2019-12-07 | C:\Users\Default User
+      570.7 MB | 2026-10-22 | C:\Users\Public
+
+## 5. Known cache / junk locations
+size | last-write | exists | path | note
+       59.9 MB | 2026-11-26 | YES | C:\Windows\Temp | system temp, safe to clear
+        1.0 MB | 2026-11-26 | YES | C:\Windows\SystemTemp | system temp
+      125.2 MB | 2026-11-26 | YES | C:\Users\Administrator\AppData\Local\Temp | user temp, safe to clear
+        0.0 MB | 2026-11-26 | YES | C:\Windows\SoftwareDistribution\Download | Windows Update download cache, safe to clear
+       27.5 MB | 2026-11-23 | YES | C:\Windows\SoftwareDistribution | update cache root
+        7.4 MB | 2026-11-26 | YES | C:\Windows\Prefetch | prefetch, safe to clear
+        0.0 MB | 2025-10-13 | YES | C:\Windows\Minidump | crash dumps
+        0.0 MB | 2026-11-11 | YES | C:\Windows\LiveKernelReports | kernel dumps
+             - | - | NO  | C:\Windows\memory.dmp | full memory dump (often huge)
+        0.1 MB | 2024-10-08 | YES | C:\Windows\Panther | setup logs
+        0.1 MB | 2026-11-25 | YES | C:\Windows\Logs | system logs
+   11,095.6 MB | 2026-11-23 | YES | C:\Windows\Installer | MSI cache - DO NOT delete manually
+   11,143.7 MB | 2026-11-17 | YES | C:\Windows\WinSxS | component store - only via DISM
+             - | - | NO  | C:\Windows.old | old OS backup, can delete
+        0.0 MB | 2024-10-08 | YES | C:\$WINDOWS.~BT | upgrade temp, can delete
+        0.0 MB | 2024-10-08 | YES | C:\$Windows.~WS | upgrade temp, can delete
+        0.0 MB | 2023-08-18 | YES | C:\$Recycle.Bin | recycle bin
+      414.6 MB | 2026-10-21 | YES | C:\ProgramData\Package Cache | installer cache (VS etc.), can clear
+             - | - | NO  | C:\ProgramData\Microsoft\Windows\DeliveryOptimization | delivery optimization cache
+        0.0 MB | 2026-11-24 | YES | C:\ProgramData\Microsoft\Windows\WER | error reports
+             - | - | NO  | C:\ProgramData\Microsoft\Windows\Defender\Definition Updates | old Defender definitions
+        1.3 MB | 2026-11-23 | YES | C:\ProgramData\Microsoft\Windows\Caches | thumb/icon cache
+        0.0 MB | 2026-11-25 | YES | C:\Users\Administrator\AppData\Local\CrashDumps | crash dumps
+        0.2 MB | 2026-03-30 | YES | C:\Users\Administrator\AppData\Local\Microsoft\Windows\INetCache | IE/system web cache
+       32.9 MB | 2026-11-26 | YES | C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer | thumbnail cache
+       74.5 MB | 2026-11-26 | YES | C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache | web cache db
+      115.9 MB | 2026-11-04 | YES | C:\Users\Administrator\AppData\Local\Microsoft\Edge\User Data | Edge data
+    1,340.3 MB | 2026-11-26 | YES | C:\Users\Administrator\AppData\Local\Google\Chrome\User Data | Chrome data
+        0.0 MB | 2026-10-22 | YES | C:\Users\Administrator\AppData\Local\pip\cache | pip cache
+      103.2 MB | 2026-10-29 | YES | C:\Users\Administrator\AppData\Local\npm-cache | npm cache
+        0.0 MB | 2026-10-22 | YES | C:\Users\Administrator\AppData\Local\pnpm | pnpm store
+             - | - | NO  | C:\Users\Administrator\AppData\Local\Yarn | yarn cache
+             - | - | NO  | C:\Users\Administrator\AppData\Local\Docker | Docker data
+      407.9 MB | 2026-11-24 | YES | C:\Users\Administrator\AppData\Local\Packages | UWP app data
+             - | - | NO  | C:\Users\Administrator\AppData\Local\Microsoft\Teams | Teams cache
+             - | - | NO  | C:\Users\Administrator\.gradle | Gradle cache
+             - | - | NO  | C:\Users\Administrator\.m2 | Maven repo
+             - | - | NO  | C:\Users\Administrator\.nuget | NuGet cache
+             - | - | NO  | C:\Users\Administrator\.cargo | Rust cache
+             - | - | NO  | C:\Users\Administrator\.conda | conda envs
+             - | - | NO  | C:\Users\Administrator\anaconda3 | Anaconda
+             - | - | NO  | C:\Users\Administrator\miniconda3 | Miniconda
+             - | - | NO  | C:\Users\Administrator\scoop | scoop packages
+       40.1 MB | 2026-11-26 | YES | C:\Users\Administrator\Downloads | downloads
+       21.0 MB | 2026-11-26 | YES | C:\Users\Administrator\Desktop | desktop
+        6.0 MB | 2026-11-13 | YES | C:\Users\Administrator\Documents | documents
+             - | - | NO  | C:\Users\Administrator\Documents\WeChat Files | WeChat files (often huge)
+             - | - | NO  | C:\Users\Administrator\Documents\Tencent Files | QQ files
+    4,071.7 MB | 2026-10-29 | YES | C:\Users\Administrator\AppData\Roaming\Tencent | Tencent cache
+             - | - | NO  | C:\Users\Administrator\AppData\Roaming\DingTalk | DingTalk cache
+             - | - | NO  | C:\Program Files (x86)\Steam\steamapps | Steam games
+             - | - | NO  | C:\ProgramData\NVIDIA Corporation\Downloader | NVIDIA driver download cache
+        0.0 MB | 2026-10-29 | YES | C:\ProgramData\NVIDIA Corporation\NV_Cache | NVIDIA shader cache
+    6,691.1 MB | 2026-09-08 | YES | C:\ProgramData\Adobe\ARM | Adobe update cache
+
+## 6. AppData\Local children Top 20
+   3,219.9 MB | 2026-11-25 | SynologyDrive
+   2,066.6 MB | 2025-12-22 | Unity
+   1,988.7 MB | 2026-01-26 | CapCut
+   1,640.2 MB | 2022-11-15 | Google
+   1,464.7 MB | 2024-06-19 | OfficeAid
+   1,028.1 MB | 2026-11-09 | Microsoft
+     758.9 MB | 2026-07-17 | OpenAI
+     736.6 MB | 2025-11-12 | slack
+     684.6 MB | 2026-04-27 | GitHubDesktop
+     674.0 MB | 2022-11-15 | Tencent
+     462.2 MB | 2026-11-04 | Quark
+     407.9 MB | 2026-11-24 | Packages
+     276.0 MB | 2026-10-22 | @deepseek-aidsh-desktop-updater
+     194.6 MB | 2026-03-13 | Programs
+     171.8 MB | 2026-11-25 | Everything
+     152.3 MB | 2026-02-22 | Adobe
+     132.9 MB | 2023-12-18 | NetEase
+     125.2 MB | 2026-11-26 | Temp
+     119.2 MB | 2025-12-31 | qwen-updater
+     109.6 MB | 2025-07-17 | Autodesk
+
+## 7. AppData\Roaming children Top 15
+   4,072.0 MB | 2026-10-29 | Tencent
+     836.1 MB | 2026-02-28 | Adobe
+     494.0 MB | 2026-11-25 | jlc-assistant
+     329.2 MB | 2025-12-26 | UnityHub
+     295.6 MB | 2026-03-13 | Microsoft
+     219.0 MB | 2026-04-17 | AiPPT
+     140.0 MB | 2026-11-25 | QQEX
+     123.9 MB | 2024-09-03 | qq_guild
+     123.1 MB | 2025-07-15 | com.adobe.dunamis
+     121.4 MB | 2026-09-22 | RStudio
+     114.5 MB | 2023-05-18 | InstallShield Installation Information
+      99.0 MB | 2022-11-16 | NVIDIA
+      74.9 MB | 2026-11-25 | QQ
+      63.4 MB | 2025-07-08 | GaomonTablet
+      37.5 MB | 2026-01-05 | Qwen
+
+## 8. ProgramData children Top 15
+   8,390.6 MB | 2024-03-13 | Adobe
+   1,083.6 MB | 2023-02-24 | Corel
+     984.9 MB | 2026-10-22 | SOLIDWORKS
+     881.7 MB | 2023-05-18 | Altium
+     878.0 MB | 2025-12-22 | Microsoft
+     727.0 MB | 2025-07-17 | Autodesk
+     414.6 MB | 2026-10-21 | Package Cache
+     390.9 MB | 2024-05-10 | evernote-client-updater
+     240.5 MB | 2026-01-12 | Wondershare Filmora
+     205.9 MB | 2025-08-14 | Tencent
+     193.3 MB | 2026-04-07 | ACD Systems
+     169.2 MB | 2022-11-15 | Thunder Network
+     160.7 MB | 2026-11-10 | SogouInput
+     128.6 MB | 2023-08-24 | SGAIAssistant
+      28.5 MB | 2025-05-29 | Windows Master Store
+
+## 9. C:\Program Files children Top 15
+   9,474.3 MB | 2026-11-26 | WindowsApps
+   4,690.8 MB | 2026-11-23 | Microsoft Office
+   4,224.6 MB | 2026-11-23 | Common Files
+   1,505.7 MB | 2023-02-24 | Corel
+   1,381.9 MB | 2026-04-07 | Adobe
+     573.4 MB | 2026-11-23 | Microsoft OneDrive
+     518.4 MB | 2023-02-17 | Google
+     417.0 MB | 2026-10-21 | Microsoft SQL Server
+     336.0 MB | 2023-03-24 | FLIR Systems
+     230.9 MB | 2026-11-10 | Windows Defender Advanced Threat Protection
+     209.4 MB | 2025-07-16 | Autodesk
+     112.8 MB | 2026-06-11 | HPPrintScanDoctor
+      82.3 MB | 2022-11-16 | PDFCreator
+      52.2 MB | 2022-11-16 | Office
+      47.6 MB | 2023-02-17 | BitComet
+
+## 9. C:\Program Files (x86) children Top 15
+   4,694.4 MB | 2026-11-06 | Microsoft
+   1,096.5 MB | 2026-10-22 | Common Files
+     547.9 MB | 2024-05-05 | Google
+     528.3 MB | 2025-08-14 | Tencent
+     279.3 MB | 2023-04-19 | dotnet
+     229.4 MB | 2023-03-24 | FLIR Systems
+     195.4 MB | 2023-05-18 | SAP BusinessObjects
+     100.0 MB | 2025-12-22 | Microsoft Visual Studio
+      85.2 MB | 2025-12-22 | Reference Assemblies
+      55.4 MB | 2023-05-18 | InstallShield Installation Information
+      48.8 MB | 2026-10-21 | Microsoft SQL Server
+      39.0 MB | 2024-10-10 | Adobe
+      37.6 MB | 2023-05-18 | Open Design Alliance
+      35.0 MB | 2022-11-16 | Windows Kits
+      23.7 MB | 2023-02-24 | gs
+
+## 10. Files > 300 MB under user profile (top 40)
+       576 MB | 2025-11-27 | C:\Users\Administrator\AppData\Local\Unity\cache\npm\packages.unity.cn\com.unity.burst\1.8.21\package.tgz
+       414 MB | 2026-11-25 | C:\Users\Administrator\AppData\Roaming\Tencent\xwechat\update\patch\4.2.1.10\RadiumWMPF.bin
+       356 MB | 2026-11-12 | C:\Users\Administrator\AppData\Local\OpenAI\Codex\bin\9e1da79431da526b\codex.exe
+       327 MB | 2025-12-22 | C:\Users\Administrator\AppData\Roaming\UnityHub\Templates\com.unity.template.get-started-2.0.1.tgz
+
+## 11. Downloads top 30 by size
+        12 MB | 2024-08-26 | C:\Users\Administrator\Downloads\Programs\qq2004sp1.exe
+         3 MB | 2026-08-12 | C:\Users\Administrator\Downloads\KA0200038c556a5bd520001.pdf
+         3 MB | 2025-11-03 | C:\Users\Administrator\Downloads\HALO-Outdoor-ALP-Area-Light-spec-sheet.pdf
+         2 MB | 2025-11-03 | C:\Users\Administrator\Downloads\A17_Family_Spec_Sheet_8.pdf
+         2 MB | 2026-08-04 | C:\Users\Administrator\Downloads\灯珠定制合同.docx
+         1 MB | 2026-06-17 | C:\Users\Administrator\Downloads\FLIR_20260617_015257_943.jpg
+         1 MB | 2026-08-05 | C:\Users\Administrator\Downloads\宏脑-光擎定制合同20260804-01签章.pdf
+         1 MB | 2026-10-13 | C:\Users\Administrator\Downloads\个人收支记账表-2026年8月13-2026年9月13.xlsx
+         1 MB | 2026-05-22 | C:\Users\Administrator\Downloads\3_5630-B1(反C角).pdf
+         1 MB | 2025-04-15 | C:\Users\Administrator\Downloads\Documents\2013123153019512.pdf
+         1 MB | 2026-11-11 | C:\Users\Administrator\Downloads\Screenshot_2026-11-11-09-25-34-50_ca6ee20236ea15a.jpg
+         1 MB | 2026-08-04 | C:\Users\Administrator\Downloads\灯珠定制合同.pdf
+         1 MB | 2026-10-27 | C:\Users\Administrator\Downloads\高坐标打靶图.xlsx
+         1 MB | 2026-11-06 | C:\Users\Administrator\Downloads\Screenshot_2026-11-06-14-20-17-66_847feaa60916919.jpg
+         1 MB | 2026-10-28 | C:\Users\Administrator\Downloads\SZ3827-CNP-RLI-中国发明协议.jpg
+         1 MB | 2026-10-28 | C:\Users\Administrator\Downloads\SZ3826-CNP-RLI-中国发明协议.jpg
+         1 MB | 2026-05-22 | C:\Users\Administrator\Downloads\SMD5630-size-b.psd
+         0 MB | 2026-09-16 | C:\Users\Administrator\Downloads\1313灯珠250MA老化测试报告.xls
+         0 MB | 2025-10-23 | C:\Users\Administrator\Downloads\球泡灯\2\球泡灯    10W    4500K+2700K+2000K+1200K.pdf
+         0 MB | 2025-10-23 | C:\Users\Administrator\Downloads\球泡灯   10W    2700K+2200K+1800K+1200K.pdf
+         0 MB | 2025-10-23 | C:\Users\Administrator\Downloads\球泡灯\1\球泡灯   10W    2700K+2200K+1800K+1200K.pdf
+         0 MB | 2025-04-15 | C:\Users\Administrator\Downloads\CN211780301U.pdf
+         0 MB | 2026-06-11 | C:\Users\Administrator\Downloads\2021115969959-第二次审查意见通知书.pdf
+         0 MB | 2025-10-23 | C:\Users\Administrator\Downloads\球泡灯\4\球泡灯   10W    4W    0.8W    2700K.pdf
+         0 MB | 2026-08-17 | C:\Users\Administrator\Downloads\支付宝交易明细(20240901-20250830)\支付宝交易明细(20240901-20250830).pdf
+         0 MB | 2026-08-17 | C:\Users\Administrator\Downloads\支付宝交易明细(20250901-20260817)\支付宝交易明细(20250901-20260817).pdf
+         0 MB | 2026-11-25 | C:\Users\Administrator\Downloads\PCB4_PCB2_20261125_160651.zip
+         0 MB | 2026-08-17 | C:\Users\Administrator\Downloads\支付宝交易明细(20240901-20250830).zip
+         0 MB | 2026-08-17 | C:\Users\Administrator\Downloads\支付宝交易明细(20250901-20260817).zip
+         0 MB | 2025-10-23 | C:\Users\Administrator\Downloads\球泡灯\3\球泡灯   10W    4W      0.8W     1200K.pdf
+
+## 12. Large virtual disks / images (.vhdx .vhd .iso .wim .edb > 200MB)
+
+## 13. Installed programs Top 50 (registry EstimatedSize, approx)
+   64914 MB | 2025-07-08 14:04:54 | GaomonTablet | 
+    7781 MB | 20261022 | SOLIDWORKS 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS\
+    6050 MB |  | Altium Designer 22 | D:\Program Files\Altium\AD22
+    4937 MB | 7/15/2025 | Adobe Photoshop 2024 | C:\Program Files\Adobe\Adobe Photoshop 2024
+    4688 MB | 20261022 | SOLIDWORKS Visualize 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS Visualize\
+    3670 MB | 11/17/2022 | Adobe Premiere Pro 2022 | F:\Program Files
+    3659 MB | 11/17/2022 | Adobe After Effects 2022 | F:\Program Files
+    3492 MB | 11/16/2022 | Adobe Photoshop 2021 | E:\Program Files\Adobe Photoshop 2021
+    2792 MB | 20261022 | SOLIDWORKS CAM 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS CAM\
+    2466 MB | 20250716 | AutoCAD 2021 | E:\Program Files\Autodesk\AutoCAD 2021\
+    2242 MB | 20261022 | SOLIDWORKS Plastics 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS Plastics\
+    2141 MB | 20261117 | Copilot | C:\Program Files (x86)\Microsoft\Copilot\Application
+    2141 MB | 20261117 | Microsoft Edge | C:\Program Files (x86)\Microsoft\Edge\Application
+    2135 MB | 20261118 | Microsoft Edge WebView2 Runtime | C:\Program Files (x86)\Microsoft\EdgeWebView\Application
+    1832 MB | 3/11/2024 | Adobe Illustrator 2023 | F:\Program Files\Adobe Illustrator 2023
+    1810 MB |  | CorelDRAW Graphics Suite 2020 (64-Bit) | c:\Program Files\Corel\CorelDRAW Graphics Suite 2020\
+    1723 MB | 20261022 | SOLIDWORKS Composer 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS Composer\
+    1312 MB | 20261022 | SOLIDWORKS Inspection 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS Inspection\
+    1288 MB | 20261022 | SOLIDWORKS Flow Simulation 2025 SP05  | M:\Program Files\Solidworks2025\SOLIDWORKS Flow Simulation\
+    1170 MB | 20260813 | Adobe Acrobat (64-bit) | C:\Program Files\Adobe\Acrobat DC\
+    1152 MB |  | FLIR Tools | 
+    1068 MB |  | CorelDRAW Graphics Suite 2019 (64-Bit) | f:\Program Files\Corel\CorelDRAW Graphics Suite 2019\
+    1043 MB |  | DeepSeek Harness 0.2.1-rc.2 | M:\Program Files\Deepseek
+    1036 MB | 11/18/2022 | Adobe Audition 2022 | F:\Program Files
+     992 MB | 20260407 | ACDSee Photo Studio Ultimate 2026 | D:\Program Files\ACD Systems\
+     971 MB |  | QQ | 
+     895 MB |  | 微信 | "I:\Weixin"
+     840 MB | 20261022 | SOLIDWORKS Visualize Boost 2025 SP05 | M:\Program Files\Solidworks2025\SOLIDWORKS Visualize Boost\
+     756 MB | 20260112 | Wondershare Filmora 15(Build 15.1.2.17051) | L:\Program Files (x86)\Wondershare\Wondershare Filmora_繁體中文\
+     658 MB | 20221117 | Autodesk 3ds Max 9 32-bit | E:\Program Files (x86)\Autodesk\3ds Max 9\
+     632 MB | 20230224 | CorelDRAW Graphics Suite 2020 - Common (x64) | 
+     601 MB | 20261022 | SOLIDWORKS eDrawings 2025 SP05 | M:\Program Files\Solidworks2025\eDrawings\
+     583 MB |  | Upscayl 2.15.0 | 
+     556 MB | 20221117 | CorelDRAW Graphics Suite 2019 - Common (x64) | 
+     546 MB |  | Microsoft OneDrive | 
+     532 MB |  | Unity Hub 3.15.4 | 
+     512 MB | 20261112 | Google Chrome | C:\Program Files\Google\Chrome\Application
+     486 MB |  | 微信 | I:\WeChat
+     432 MB | 20250627 | 创芯工坊 | E:\Users\Administrator\AppData\Local\ICWorkShop\
+     420 MB | 20241018 | 嘉立创CAM软件 版本 1.7.2 | d:\Program Files\jlcCAM\
+     367 MB | 20250724 | Ansys Optics Launcher 2024 R1 for x64 | 
+     348 MB | 20261022 | CEF for SOLIDWORKS Applications | C:\Program Files\Common Files\SOLIDWORKS Shared\swcef\
+     346 MB | 20251204 | Git | M:\Program Files\Git\
+     336 MB | 20261022 | SOLIDWORKS 2025 Chinese Simplified Resources | M:\Program Files\Solidworks2025\SOLIDWORKS\
+     332 MB | 20221117 | DaVinci Resolve Control Panels | 
+     327 MB | 3/11/2024 | UXP WebView Support | C:\Program Files\Common Files\Adobe\Microsoft\EdgeWebView
+     312 MB |  | TIM | H:\Program Files (x86)\Tencent\TIM
+     269 MB | 20230324 | Flir Template Editor | 
+     253 MB | 20230906 | bigjpg version 1.8.0 | F:\Program Files (x86)\bigjpg\
+     250 MB |  | Clash for Windows 0.20.16 | 
+
+## 14. DISM component store analysis (read-only, may need admin)
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.3636
+
+Image Version: 10.0.19045.6466
+
+
+[=                          2.9%                           ] 
+
+[==                         4.9%                           ] 
+
+[===                        6.6%                           ] 
+
+[=====                      9.0%                           ] 
+
+[======                     11.3%                          ] 
+
+[========                   14.3%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[=========                  16.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[==========                 18.0%                          ] 
+
+[=============              22.8%                          ] 
+
+[===============            26.6%                          ] 
+
+[================           29.2%                          ] 
+
+[==================         31.1%                          ] 
+
+[==================         32.7%                          ] 
+
+[===================        34.3%                          ] 
+
+[=====================      36.6%                          ] 
+
+[======================     38.4%                          ] 
+
+[=======================    40.7%                          ] 
+
+[========================   42.7%                          ] 
+
+[=========================  44.5%                          ] 
+
+[===========================47.2%                          ] 
+
+[===========================49.8%                          ] 
+
+[===========================52.6%                          ] 
+
+[===========================54.1%                          ] 
+
+[===========================56.8%                          ] 
+
+[===========================59.9%==                        ] 
+
+[===========================86.5%==================        ] 
+
+[===========================97.2%========================  ] 
+
+[===========================97.2%========================  ] 
+
+[==========================100.0%==========================] 
+
+Component Store (WinSxS) information:
+
+Windows Explorer Reported Size of Component Store : 11.65 GB
+
+Actual Size of Component Store : 11.42 GB
+
+    Shared with Windows : 6.67 GB
+    Backups and Disabled Features : 4.74 GB
+    Cache and Temporary Data :  0 bytes
+
+Date of Last Cleanup : 2026-11-24 11:24:16
+
+Number of Reclaimable Packages : 0
+Component Store Cleanup Recommended : No
+
+The operation completed successfully.
+
+## DONE 2026-11-26 16:04:55
